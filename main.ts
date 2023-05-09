@@ -195,7 +195,6 @@ function Change_Level (Level_number: number) {
 sprites.onOverlap(SpriteKind.npc, SpriteKind.Player, function (sprite, otherSprite) {
     game.showLongText("Ummm, I think I heard some weird noises coming from the PARK! Man, ever since the sun went missing, things have only been getting weirder from here...", DialogLayout.Bottom)
     pause(5000)
-    tiles.placeOnRandomTile(mySprite2, assets.tile`myTile28`)
 })
 function cancelout () {
     sprites.destroyAllSpritesOfKind(SpriteKind.shopkind)
@@ -205,7 +204,6 @@ function cancelout () {
 sprites.onOverlap(SpriteKind.theothernpc, SpriteKind.Player, function (sprite, otherSprite) {
     game.showLongText("I was looking forward to tanning today... What am I going to do now?! Please save us...", DialogLayout.Bottom)
     pause(5000)
-    tiles.placeOnRandomTile(mySprite, assets.tile`myTile27`)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile8`, function (sprite, location) {
     current_level += 1
@@ -385,7 +383,6 @@ function normal () {
 sprites.onOverlap(SpriteKind.Silly, SpriteKind.Player, function (sprite, otherSprite) {
     game.showLongText("The sun is extremely important in our society! I mean, what kind of Solarpunk city works without a sun?! Would it even be solar punk at that point? .... Please save us, we're litterally doomed if the sun doesn't come back....!", DialogLayout.Bottom)
     pause(5000)
-    tiles.placeOnRandomTile(mySprite3, assets.tile`transparency16`)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
@@ -394,9 +391,7 @@ let myEnemy: Sprite = null
 let projectile2: Sprite = null
 let shop_keeper: Sprite = null
 let projectile: Sprite = null
-let mySprite3: Sprite = null
 let mySprite: Sprite = null
-let mySprite2: Sprite = null
 let house: Sprite = null
 let playersprite: Sprite = null
 let current_level = 0
@@ -989,7 +984,7 @@ house = sprites.create(img`
     .....64eee444c66f4e44e44e44e44ee66c444eee46.....
     ......6ccc666c66e4e44e44e44e44ee66c666ccc6......
     `, SpriteKind.Food)
-mySprite2 = sprites.create(img`
+let mySprite2 = sprites.create(img`
     . . . . . e e e e e . . . . . . 
     . . . . e e e e e e e . . . . . 
     . . . . e e 4 e 4 e e . . . . . 
@@ -1103,7 +1098,7 @@ mySprite = sprites.create(img`
     . . . . . f f f f f . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.theothernpc)
-mySprite3 = sprites.create(img`
+let mySprite3 = sprites.create(img`
     . . . . . e e e e e . . . . . . 
     . . . . e e e e e e e . . . . . 
     . . . . e e 4 e 4 e e . . . . . 
@@ -1121,9 +1116,10 @@ mySprite3 = sprites.create(img`
     . . . . . f f f f f . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Silly)
-game.onUpdateInterval(5000, function () {
-	
-})
+tiles.placeOnRandomTile(mySprite, assets.tile`myTile27`)
+tiles.placeOnRandomTile(mySprite2, assets.tile`myTile28`)
+tiles.placeOnRandomTile(mySprite3, assets.tile`myTile36`)
+tiles.placeOnRandomTile(projectile, assets.tile`myTile14`)
 forever(function () {
     projectile = sprites.createProjectileFromSide(img`
         . . . . . . . . . . . . . . . . 
@@ -1161,7 +1157,7 @@ forever(function () {
         . . . f f f . . . . f f f f . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Projectile)
-    projectile.setPosition(5, 103)
+    story.spriteSayText(projectile, "Hey! Get out the way!")
     animation.runImageAnimation(
     projectile,
     [img`
@@ -1199,9 +1195,8 @@ forever(function () {
         e f b b f e e e f b b f e e e e 
         . f c c b f e e f c c b f e e . 
         `],
-    5000,
+    200,
     true
     )
     pause(10000)
-    story.spriteSayText(projectile, "Hey! Get out the way!")
 })
